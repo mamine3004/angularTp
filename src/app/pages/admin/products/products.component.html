@@ -1,0 +1,107 @@
+<p>products works!</p>
+<div class="row">
+    <div [ngClass]="isSidePanelVisisble ? 'col-8' : 'col-12'">
+        <div class="card">
+            <div class="card-header bg-primary-custom">
+                <div class="row">
+                    <div class="col-6">
+                        <h1 class="title-shop">Products List</h1>
+                    </div>
+                    <div class="col-6  text-end">
+                        <button class="btn btn-sm btn-success" (click)="openSidePanel()">New</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <main class="main bd-grid">
+                    <div class="product-card" *ngFor="let product of productsList">
+                        <div class="product-card__image">
+                            <img [src]="product.imageProduct" alt="Red Nike Shoes">
+                        </div>
+                        <div class="product-card__info">
+                            <h2 class="product-card__title">{{ product.name}}</h2>
+                            <p class="product-card__description">{{ product.description}}</p>
+                            <div class="product-card__price-row">
+                                <span class="product-card__price">${{ product.price}}</span>
+                                <button class="product-card__btn" (click)="onDelete(product.id)">delete</button>
+                                <button class="product-card__btn"(click)="onupdateProduct(product)">edit</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </main>
+                <footer>
+                    <a href="/products">Ecommerce </a>
+                </footer>
+                <!-- ICONS -->
+                <!-- <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4" *ngIf="isSidePanelVisisble">
+        <div class="card">
+            <div class="card-header bg-primary-custom">
+                <div class="row">
+                    <div class="col-6">
+
+                        <h1 class="title-shop">New Products</h1>
+                    </div>
+                    <div class="col-6  text-end">
+                        <button class="btn btn-sm btn-success" (click)="closeSidePanel()">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <label for="">Name</label>
+                        <input type="text" [(ngModel)]="productObj.name" class="form-control" placeholder="Enter name"
+                            name="name">
+                    </div>
+                    <div class="col">
+                        <label for="">Price</label>
+                        <input type="number" [(ngModel)]="productObj.price" class="form-control"
+                            placeholder="Enter price" name="price">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="">Image</label>
+                        <input type="text" [(ngModel)]="productObj.imageProduct" class="form-control"
+                            placeholder="Enter image link" name="name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="">Description</label>
+                        <textarea class="form-control" [(ngModel)]="productObj.description" name="description"
+                            id="descriptionProduct" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="">Category</label>
+                        <select [(ngModel)]="categoryId" class="form-control">
+                            <option *ngFor="let cate of categoryList" [value]='cate.id' >{{ cate.name }}</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="">Qty</label>
+                        <input type="number" [(ngModel)]="productObj.qty" class="form-control"
+                            placeholder="Enter Quantity" name="qty">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-success" *ngIf="!isupdate" (click)="onSave()">Create Product</button>
+                        <button class="btn btn-success" *ngIf="isupdate" (click)="onUpdate()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
